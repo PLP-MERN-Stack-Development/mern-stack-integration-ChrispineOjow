@@ -1,0 +1,11 @@
+.edit-post {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.edit-post h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
