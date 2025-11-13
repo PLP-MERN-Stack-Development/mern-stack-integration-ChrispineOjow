@@ -1,19 +1,17 @@
 // server.js - Main server file for the MERN blog application
 
 // Import required modules
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const path = require('path');
+import express from "express"
+import cors from "cors"
+import "dotenv/config"
+import path from "path";
 
 // Import routes
-const postRoutes = require('./routes/posts');
-const categoryRoutes = require('./routes/categories');
-const authRoutes = require('./routes/auth');
+import postRoutes from './routes/posts';
+import categoryRoutes from './routes/categories';
+import authRoutes from './routes/auth';
 
-// Load environment variables
-dotenv.config();
+
 
 // Initialize Express app
 const app = express();
@@ -54,19 +52,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Connect to MongoDB and start server
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error('Failed to connect to MongoDB', err);
-    process.exit(1);
-  });
+
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
@@ -75,4 +61,16 @@ process.on('unhandledRejection', (err) => {
   process.exit(1);
 });
 
-module.exports = app; 
+app.listen(PORT, ()=>{
+  try{
+
+    console.log(`The server is running in http://localhost:${PORT}`);
+
+  }catch(error){
+
+    console.error(`An issue occured with the server connection, ${error}`);
+    //Close the server and exit the process
+    process.exit(1);
+
+  }
+})
